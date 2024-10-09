@@ -1,0 +1,15 @@
+services:
+  db:
+    image: 'postgres:alpine3.19'
+    container_name: db
+    environment:
+      POSTGRES_DB: springHome
+      POSTGRES_USER: zero
+      POSTGRES_PASSWORD: V6smuw4qc7kx
+    ports:
+    - "5432:5432"
+    volumes:
+      - aston_task_2:/var/lib/postgresql/data
+volumes:
+  aston_task_2:
+    name: aston-task-2

@@ -1,0 +1,157 @@
+databaseChangeLog:
+- changeSet:
+    id: 1728509441583-1
+    author: ilyan (generated)
+    changes:
+    - createTable:
+        columns:
+        - column:
+            name: type_of_service
+            type: SMALLINT
+        - column:
+            autoIncrement: true
+            constraints:
+              nullable: false
+              primaryKey: true
+              primaryKeyName: assistance_pkey
+            name: id
+            type: BIGINT
+        - column:
+            name: description
+            type: VARCHAR(255)
+        - column:
+            name: executor
+            type: VARCHAR(255)
+        tableName: assistance
+- changeSet:
+    id: 1728509441583-2
+    author: ilyan (generated)
+    changes:
+    - createTable:
+        columns:
+        - column:
+            name: type_attraction
+            type: SMALLINT
+        - column:
+            name: date_of_creation
+            type: TIMESTAMP WITHOUT TIME ZONE
+        - column:
+            autoIncrement: true
+            constraints:
+              nullable: false
+              primaryKey: true
+              primaryKeyName: attraction_pkey
+            name: id
+            type: BIGINT
+        - column:
+            name: locality_id
+            type: BIGINT
+        - column:
+            name: name
+            type: VARCHAR(255)
+        - column:
+            name: short_description
+            type: VARCHAR(255)
+        tableName: attraction
+- changeSet:
+    id: 1728509441583-3
+    author: ilyan (generated)
+    changes:
+    - createSequence:
+        cacheSize: 1
+        cycle: false
+        dataType: bigint
+        incrementBy: 50
+        maxValue: 9223372036854775807
+        minValue: 1
+        sequenceName: locality_seq
+        startValue: 1
+- changeSet:
+    id: 1728509441583-4
+    author: ilyan (generated)
+    changes:
+    - createTable:
+        columns:
+        - column:
+            constraints:
+              nullable: false
+            name: assistance_id
+            type: BIGINT
+        - column:
+            constraints:
+              nullable: false
+            name: attractions_id
+            type: BIGINT
+        tableName: assistance_attractions
+- changeSet:
+    id: 1728509441583-5
+    author: ilyan (generated)
+    changes:
+    - createTable:
+        columns:
+        - column:
+            name: height
+            type: FLOAT8
+        - column:
+            name: width
+            type: FLOAT8
+        - column:
+            constraints:
+              nullable: false
+              primaryKey: true
+              primaryKeyName: locality_pkey
+            name: id
+            type: BIGINT
+        - column:
+            name: region
+            type: VARCHAR(255)
+        - column:
+            name: settlement
+            type: VARCHAR(255)
+        tableName: locality
+- changeSet:
+    id: 1728509441583-6
+    author: ilyan (generated)
+    changes:
+    - addForeignKeyConstraint:
+        baseColumnNames: attractions_id
+        baseTableName: assistance_attractions
+        constraintName: fkb0n4e64c1b2bccmnoafp1ja1r
+        deferrable: false
+        initiallyDeferred: false
+        onDelete: NO ACTION
+        onUpdate: NO ACTION
+        referencedColumnNames: id
+        referencedTableName: attraction
+        validate: true
+- changeSet:
+    id: 1728509441583-7
+    author: ilyan (generated)
+    changes:
+    - addForeignKeyConstraint:
+        baseColumnNames: locality_id
+        baseTableName: attraction
+        constraintName: fkc2x7mq8qhc7hn0cbr8qicnuow
+        deferrable: false
+        initiallyDeferred: false
+        onDelete: NO ACTION
+        onUpdate: NO ACTION
+        referencedColumnNames: id
+        referencedTableName: locality
+        validate: true
+- changeSet:
+    id: 1728509441583-8
+    author: ilyan (generated)
+    changes:
+    - addForeignKeyConstraint:
+        baseColumnNames: assistance_id
+        baseTableName: assistance_attractions
+        constraintName: fkmex8xy7gwfjf6anby833vpvso
+        deferrable: false
+        initiallyDeferred: false
+        onDelete: NO ACTION
+        onUpdate: NO ACTION
+        referencedColumnNames: id
+        referencedTableName: assistance
+        validate: true
+
