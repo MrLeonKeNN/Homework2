@@ -25,8 +25,8 @@ public class AttractionServiceImpl implements AttractionService {
     private final Converter<Attraction, AttractionDto> converter;
     private final LocalityRepositoryImpl localityRepository;
 
-    private static final String  LOCALITY_NOT_FOUND = "Locality not found";
-    private static final String  ATTRACTION_NOT_FOUND = "Attraction not found";
+    private static final String LOCALITY_NOT_FOUND = "Locality not found";
+    private static final String ATTRACTION_NOT_FOUND = "Attraction not found";
 
 
     /**
@@ -83,7 +83,7 @@ public class AttractionServiceImpl implements AttractionService {
     /**
      * Updates information about an attraction.
      *
-     * @param id the identifier of the attraction to update.
+     * @param id            the identifier of the attraction to update.
      * @param attractionDto the DTO object containing new data.
      * @throws EntityNotFoundException if the attraction with the specified ID is not found.
      */
@@ -99,7 +99,7 @@ public class AttractionServiceImpl implements AttractionService {
     /**
      * Retrieves a list of attractions sorted by name and type.
      *
-     * @param attractionName the name for sorting.
+     * @param attractionName  the name for sorting.
      * @param attractionsEnum the enumeration of attraction types for filtering.
      * @return a list of DTO objects representing the sorted attractions.
      */
