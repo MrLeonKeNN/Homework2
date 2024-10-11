@@ -2,30 +2,42 @@
 <Configuration status="WARN">
     <Appenders>
         <Console name="Console" target="SYSTEM_OUT">
-            <PatternLayout pattern="%d{yyyy-MM-dd HH:mm:ss} %-5p %c{1} - %m%n" />
+            <PatternLayout pattern="%d{yyyy-MM-dd HH:mm:ss} %-5p %c{1} - %m%n"/>
         </Console>
 
+        <File name="InfoFile" fileName="logs/info.log" append="true">
+            <PatternLayout pattern="%d{yyyy-MM-dd HH:mm:ss} %-5p %c{1} - %m%n"/>
+            <Filters>
+                <LevelRangeFilter minLevel="INFO" maxLevel="INFO" onMatch="ACCEPT" onMismatch="DENY"/>
+            </Filters>
+        </File>
+
         <File name="DebugFile" fileName="logs/debug.log" append="true">
-            <PatternLayout pattern="%d{yyyy-MM-dd HH:mm:ss} %-5p %c{1} - %m%n" />
+            <PatternLayout pattern="%d{yyyy-MM-dd HH:mm:ss} %-5p %c{1} - %m%n"/>
+            <Filters>
+                <LevelRangeFilter minLevel="DEBUG" maxLevel="DEBUG" onMatch="ACCEPT" onMismatch="DENY"/>
+            </Filters>
         </File>
 
         <File name="ErrorFile" fileName="logs/error.log" append="true">
-            <PatternLayout pattern="%d{yyyy-MM-dd HH:mm:ss} %-5p %c{1} - %m%n" />
+            <PatternLayout pattern="%d{yyyy-MM-dd HH:mm:ss} %-5p %c{1} - %m%n"/>
+            <Filters>
+                <LevelRangeFilter minLevel="ERROR" maxLevel="ERROR" onMatch="ACCEPT" onMismatch="DENY"/>
+            </Filters>
         </File>
     </Appenders>
 
     <Loggers>
-        <Logger name="com.homework2" level="debug" additivity="false">
+        <Logger name="com.homework2" level="debug" additivity="true">
             <AppenderRef ref="Console" />
-            <AppenderRef ref="DebugFile" />
-        </Logger>
-
-        <Logger name="com.homework2.error" level="error" additivity="false">
-            <AppenderRef ref="ErrorFile" />
+            <AppenderRef ref="DebugFile"/>
+            <AppenderRef ref="InfoFile"/>
+            <AppenderRef ref="ErrorFile"/>
         </Logger>
 
         <Root level="info">
-            <AppenderRef ref="Console" />
+            <AppenderRef ref="Console"/>
+            <AppenderRef ref="InfoFile"/>
         </Root>
     </Loggers>
 </Configuration>

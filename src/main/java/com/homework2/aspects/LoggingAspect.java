@@ -6,13 +6,15 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
+import java.io.PrintWriter;
+import java.io.StringWriter;
 import java.util.Arrays;
 
 /**
  * The {@link LoggingAspect} class is an aspect for logging method calls in the application.
  * <p>
  * This class uses Aspect-Oriented Programming (AOP) to intercept method calls and log various events such as method
- * entry, exit, return values, and exceptions. It utilizes SLF4J for logging purposes.
+ * entry, exit, return values, and exceptions. It utilizes Log4j  for logging purposes.
  * </p>
  */
 @Aspect
@@ -74,8 +76,13 @@ public class LoggingAspect {
      * @param error     the thrown exception.
      */
     @AfterThrowing(pointcut = "execution(* com.homework2..*(..))", throwing = "error")
-    public void logMethodException(JoinPoint joinPoint, Throwable error) {
+    public void logMethodException(JoinPoint joinPoint, Exception error) {
         String methodName = joinPoint.getSignature().getName();
-        logger.error("Method {} threw exception: {}", methodName, error.getMessage());
+
+        StringWriter stringWriter = new StringWriter();
+        error.printStackTrace(new PrintWriter(stringWriter));
+        String stackTrace = stringWriter.toString();
+
+        logger.error("Method {} threw exception: {} \n{}", methodName, error.getMessage(), stackTrace);
     }
 }

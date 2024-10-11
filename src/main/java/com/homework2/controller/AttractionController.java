@@ -60,7 +60,7 @@ public class AttractionController {
     /**
      * Edits an existing attraction.
      *
-     * @param id the identifier of the attraction to be edited
+     * @param id            the identifier of the attraction to be edited
      * @param attractionDto the AttractionDto containing the updated details of the attraction
      * @return a ResponseEntity indicating the result of the edit operation
      */
@@ -74,13 +74,12 @@ public class AttractionController {
      * Retrieves a list of attractions based on sorting and filtering criteria.
      *
      * @param attractionName the sorting criteria
-     * @param filter the filtering criteria, represented as an AttractionsEnum
+     * @param filter         the filtering criteria, represented as an AttractionsEnum
      * @return a ResponseEntity containing a list of AttractionDto matching the criteria
      */
     @GetMapping("/sort/{attractionName}/{filter}")
     public ResponseEntity<List<AttractionDto>> getByFilter(@PathVariable AttractionNames attractionName,
                                                            @PathVariable AttractionsEnum filter) {
-        System.out.println(attractionName);
         return ResponseEntity.ok(attractionService.getBySort(attractionName, filter));
     }
 }
