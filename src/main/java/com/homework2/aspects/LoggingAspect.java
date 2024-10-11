@@ -6,6 +6,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
+import java.io.PrintWriter;
+import java.io.StringWriter;
 import java.util.Arrays;
 
 /**
@@ -76,6 +78,11 @@ public class LoggingAspect {
     @AfterThrowing(pointcut = "execution(* com.homework2..*(..))", throwing = "error")
     public void logMethodException(JoinPoint joinPoint, Exception error) {
         String methodName = joinPoint.getSignature().getName();
-        logger.error("Method {} threw exception: {}", methodName, error.getMessage());
+
+        StringWriter stringWriter = new StringWriter();
+        error.printStackTrace(new PrintWriter(stringWriter));
+        String stackTrace = stringWriter.toString();
+
+        logger.error("Method {} threw exception: {} \n{}", methodName, error.getMessage(), stackTrace);
     }
 }

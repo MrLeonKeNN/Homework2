@@ -1,59 +1,43 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Configuration status="WARN">
     <Appenders>
-        <!-- Консольный вывод -->
         <Console name="Console" target="SYSTEM_OUT">
             <PatternLayout pattern="%d{yyyy-MM-dd HH:mm:ss} %-5p %c{1} - %m%n"/>
         </Console>
 
-        <!-- Info лог, который записывает только INFO и выше, но не DEBUG -->
         <File name="InfoFile" fileName="logs/info.log" append="true">
             <PatternLayout pattern="%d{yyyy-MM-dd HH:mm:ss} %-5p %c{1} - %m%n"/>
-            <!--            <LevelRangeFilter minLevel="INFO" maxLevel="INFO" onMatch="ACCEPT" onMismatch="DENY"/>-->
-
+            <Filters>
+                <LevelRangeFilter minLevel="INFO" maxLevel="INFO" onMatch="ACCEPT" onMismatch="DENY"/>
+            </Filters>
         </File>
 
-        <!-- Debug лог, который записывает только DEBUG -->
         <File name="DebugFile" fileName="logs/debug.log" append="true">
             <PatternLayout pattern="%d{yyyy-MM-dd HH:mm:ss} %-5p %c{1} - %m%n"/>
-            <!--            <LevelRangeFilter minLevel="DEBUG" maxLevel="DEBUG" onMatch="ACCEPT" onMismatch="DENY"/>-->
-
-
-
+            <Filters>
+                <LevelRangeFilter minLevel="DEBUG" maxLevel="DEBUG" onMatch="ACCEPT" onMismatch="DENY"/>
+            </Filters>
         </File>
 
-        <!-- Error лог, который записывает только ERROR -->
         <File name="ErrorFile" fileName="logs/error.log" append="true">
             <PatternLayout pattern="%d{yyyy-MM-dd HH:mm:ss} %-5p %c{1} - %m%n"/>
             <Filters>
-                <ThresholdFilter level="ERROR" onMatch="ACCEPT" onMismatch="DENY"/>
+                <LevelRangeFilter minLevel="ERROR" maxLevel="ERROR" onMatch="ACCEPT" onMismatch="DENY"/>
             </Filters>
-
-
         </File>
     </Appenders>
 
-        <Loggers>
-        <!-- Логгер для com.homework2, записывающий DEBUG и выше в debug.log -->
-        <Logger name="com.homework2" level="debug" additivity="false">
+    <Loggers>
+        <Logger name="com.homework2" level="debug" additivity="true">
+            <AppenderRef ref="Console" />
             <AppenderRef ref="DebugFile"/>
-        </Logger>
-
-
-
-        <!-- Логгер для ошибок, записывающий только ERROR в error.log -->
-        <Logger name="com.homework2" level="error" additivity="false">
+            <AppenderRef ref="InfoFile"/>
             <AppenderRef ref="ErrorFile"/>
         </Logger>
 
-        <!-- Root логгер, который записывает INFO и выше в info.log и консоль -->
         <Root level="info">
             <AppenderRef ref="Console"/>
             <AppenderRef ref="InfoFile"/>
-            <AppenderRef ref="DebugFile"/>
-            <AppenderRef ref="ErrorFile"/>
-
         </Root>
-
     </Loggers>
 </Configuration>
